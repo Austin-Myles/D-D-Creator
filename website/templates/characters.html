@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title%}Home{% endblock %}
+
+{% block content %}
+<h2 class="text-center p-4">Characters created by {{user.username}}!</h2>
+<ul class="list-group list-group-flush" id="characters">
+    {% for char in user.characters %}
+        <li class="list-group-item">{{ char.name }} / {{ char.charClass }}
+            <a href="{{ url_for('characters.char_update', char_id=char.id) }}" type="submit" class="btn btn-primary">Edit</a>
+            
+            <!--
+            <a id="deleteButton" href="{{ url_for('characters.char_delete', char_id=char.id) }}" type="submit" class="btn btn-danger disabled">Delete</a>
+            <input type="checkbox" id="myCheckbox" onchange="enableButton()">
+            -->
+        </li>
+    {% endfor %}
+    {% if user.characters|length == 0 %}
+        <h3 class="p-4 text-center">
+            No characters created!
+        </h3>
+    {% endif %}
+</ul>
+<div class="text-center p-4">
+    <a class="btn btn-primary" href="{{ url_for('characters.char_create') }}" role="button">Create a new character!</a>
+</div>
+
+<script>
+</script>
+{% endblock %}

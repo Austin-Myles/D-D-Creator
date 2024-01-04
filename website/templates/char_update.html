@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title%}Home{% endblock %}
+
+{% block content %}
+<h2 class="text-center p-3">Create a character!</h2>
+<form method="POST">
+    <div class="form-group">
+        <label for="charName">Name</label>
+        <input type="text" class="form-control" id="charName" name="charName" placeholder="Enter a name" value="{{ character.name }}"/>
+    </div>
+    <div>
+        <label for="charClass">Choose a Class:</label>
+        <select class="form-select" id="charClass" name="charClass">
+            <option value="barbarian">Barbarian</option>
+            <option value="bard">Bard</option>
+            <option value="cleric">Cleric</option>
+            <option value="druid">Druid</option>
+            <option value="fighter">Fighter</option>
+            <option value="monk">Monk</option>
+            <option value="paladin">Paladin</option>
+            <option value="ranger">Ranger</option>
+            <option value="rogue">Rogue</option>
+            <option value="sorcerer">Sorcerer</option>
+            <option value="warlock">Warlock</option>
+            <option value="wizard">Wizard</option>
+        </select>
+    </div>
+    <div>
+        <label for="charAllign">Choose an allignment:</label>
+        <select class="form-select" id="charAllign" name="charAllign">
+            <option value="lawGood">Lawful Good</option>
+            <option value="neuGood">Neutral Good</option>
+            <option value="chaGood">Chaotic Good</option>
+            <option value="lawNeu">Lawful Neutral</option>
+            <option value="neuNeu">True Neutral</option>
+            <option value="chaNeu">Chaotic Neutral</option>
+            <option value="lawEvil">Lawful Evil</option>
+            <option value="neuEvil">Neutral Evil</option>
+            <option value="chaEvil">Chaotic Evil</option>
+        </select>
+    </div>
+    <div>
+        <label for="charRace">Choose an race:</label>
+        <select class="form-select" id="charRace" name="charRace">
+            <option value="dragonBorn">Dragonborn</option>
+            <option value="dwarf">Dwarf</option>
+            <option value="elf">Elf</option>
+            <option value="gnome">Gnome</option>
+            <option value="halfElf">Half-Elf</option>
+            <option value="halfling">Hafling</option>
+            <option value="halfOrc">Half-Orc</option>
+            <option value="human">Human</option>
+            <option value="tiefling">Tiefling</option>
+        </select>
+    </div>
+    <!--
+    <div>
+        <label for="exp">Experience Points left:</label>
+        <span id="expValue">{{ character.exp }}</span>
+    </div>
+    <div>
+        <label for="strenght">Strenght: 
+            <p type="number" id="strenght" name="strenght">{{ character.fuerza }}</p>
+            <input class="btn btn-primary" type="button" onClick="incrementSkill('strenght')" value="+">
+            <input class="btn btn-primary" type="button" onClick="decrementSkill('strenght')" value="-">
+        </label>
+    </div>
+    <div>
+        <label for="dex">Dexterity:
+            <p type="number" id="dex" name="dex">{{ character.destreza }}</p>
+            <input class="btn btn-primary" type="button" onClick="incrementSkill('dex')" value="+">
+            <input class="btn btn-primary" type="button" onClick="decrementSkill('dex')" value="-">
+        </label>
+    </div>
+    <div>
+        <label for="costitution">Constitution:
+            <p type="number" id="costitution" name="costitution">{{ character.constitucion }}</p>
+            <input class="btn btn-primary" type="button" onClick="incrementSkill('costitution')" value="+">
+            <input class="btn btn-primary" type="button" onClick="decrementSkill('costitution')" value="-">
+        </label>
+    </div>
+    <div>
+        <label for="inteligence">Inteligence:
+            <p type="number" id="inteligence" name="inteligence">{{ character.inteligencia }}</p>
+            <input class="btn btn-primary" type="button" onClick="incrementSkill('inteligence')" value="+">
+            <input class="btn btn-primary" type="button" onClick="decrementSkill('inteligence')" value="-">
+        </label>
+    </div>
+    <div>
+        <label for="wisdom">Wisdom:
+            <p type="number" id="wisdom" name="wisdom">{{ character.sabiduria }}</p>
+            <input class="btn btn-primary" type="button" onClick="incrementSkill('wisdom')" value="+">
+            <input class="btn btn-primary" type="button" onClick="decrementSkill('wisdom')" value="-">
+        </label>
+    </div>
+    <div>
+        <label for="charisma">Charisma:
+            <p type="number" id="charisma" name="charisma">{{ character.carisma }}</p>
+            <input class="btn btn-primary" type="button" onClick="incrementSkill('charisma')" value="+">
+            <input class="btn btn-primary" type="button" onClick="decrementSkill('charisma')" value="-">
+        </label>
+    </div>
+    -->
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+
+    //WE'RE NOT DONE BITCH^2
+    const expElement = document.getElementById('expValue');
+    let expPoints = parseInt(expElement.textContent, 10);
+
+    let skillElement, skillPoints;
+
+    function getSkill(skillId){
+        skillElement = document.getElementById(skillId);
+        skillPoints = parseInt(skillElement.textContent, 10);
+        console.log(skillId+" "+skillElement+" "+skillPoints);
+    }
+
+    function incrementSkill(skillId){
+        getSkill(skillId);
+        if(expPoints > 0){
+            expPoints-=1;
+            skillPoints+=1;
+            updateXp();
+        }
+        else{
+            alert('Not enough experience points, stranger.');
+        }
+    }
+    
+    function decrementSkill(skillId){
+        getSkill(skillId);
+        console.log(skillPoints);
+        if(skillPoints > 0){
+            expPoints+=1;
+            skillPoints-=1;
+            updateXp();   
+        }
+        else{
+            alert('This skill is in 0, stranger.');
+        }
+    }
+
+    function updateXp(){
+        expElement.textContent = expPoints;
+        skillElement.textContent = skillPoints;
+    }
+
+</script>
+
+{% endblock %}
+
