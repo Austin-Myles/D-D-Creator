@@ -2,9 +2,13 @@
 {% block title%}Home{% endblock %}
 
 {% block content %}
-<h1 class="text-center p-4">Welcome to the D&D Character Creator!</h1>
-<h2 class="text-center p-2">I hope you like it!</h2>
+<h2 class="text-center p-2">{{ character.name }}</h2>
 <div class="text-center">
-    <a class="btn btn-primary" href="/" role="button">Go to Characters</a>
+    <p>{{ (character.charClass).capitalize() }}</p>
+    <p>{{ (character.race).capitalize() }}</p>
+    <p>{{ (character.allingment).capitalize() }}</p>
+</div>
+<div class="text-center">
+    <a class="btn btn-primary" href="/characters" role="button">Go back</a>
 </div>
 {% endblock %}

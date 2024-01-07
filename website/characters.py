@@ -15,13 +15,17 @@ def char_page():
 #Module used for showing a certain character
 @characters.route('/<char_id>')
 @login_required
-def char_show(char_id):
+def char_view(char_id):
     """
     Return the character page
     Parameter char_id: char id
     """
-    character = "null"
-    return render_template("char_view.html", character=character)
+    current_char = DndChar.query.filter_by(id=char_id).first()
+
+    if current_char:
+        return render_template("char_view.html", character=current_char, user=current_user)
+    else:
+        return redirect(url_for("characters.char_page"))
 
 #Module for creating a character
 @characters.route("/create", methods=["GET", "POST"])
@@ -99,7 +103,7 @@ def char_update(char_id):
             flash('Character edited succesfully!', category='success')
             return redirect(url_for("characters.char_page"))
             
-    return render_template("char_update.html", user=current_user, character=current_char)
+    return render_template("char_update.html", character=current_char, user=current_user)
 
 #Module for deleting a certain character
 @characters.route('/<char_id>/delete')
