@@ -1,0 +1,118 @@
+{% extends "/bases/base.html" %}
+{% block title%}Characters{% endblock %}
+
+{% block body %}
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+    
+    /* List items hover color */
+
+    
+    /* Set a style for all buttons */
+    button {
+      background-color: #04AA6D;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      opacity: 0.9;
+    }
+    
+    button:hover {
+      opacity:1;
+    }
+
+    
+    /* Add padding and center-align text to the container */
+    .container {
+      padding: 16px;
+      text-align: center;
+    }
+    
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: #474e5d;
+      padding-top: 50px;
+    }
+    
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+    }
+    
+    
+</style>
+<div class="bg-dark p-3 rounded">
+    <h2 class="text-center p-4 text-white">Characters created by {{user.username}}!</h2>
+    <ul class="list-group list-group-flush " id="characters">
+        {% for char in user.characters %}
+            <li class="list-group-item list-group-item-action list-group-item-secondary">{{ char.name }} / {{ char.charClass }}
+
+                <a href="{{ url_for('characters.char_view', char_id=char.id) }}" type="submit" class="btn btn-primary">View</a>
+
+                <a href="{{ url_for('characters.char_update', char_id=char.id) }}" type="submit" class="btn btn-info">Edit</a>
+                
+                <button class="btn btn-danger" type="button"
+                    onclick="displayModalForChar('{{ char.id }}')">Delete</button>
+            </li>
+        {% endfor %}
+        <div id="modalConfirm" class="modal">
+            <form class="modal-content">
+                <div class="container">
+                    <h1 class="p-2">Delete Character</h1>
+                    <h5 class="p-2">Are you sure you want to delete this character?</h5>
+
+                    <div class="">
+                        <button type="button" onclick="document.getElementById('modalConfirm').style.display='none'" class="btn btn-secondary btn-lg p-3">Cancel</button>
+                        <button type="button" onclick="deleteChar()" class="btn btn-danger btn-lg p-3">Delete</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if user.characters|length == 0 %}
+            <h3 class="p-4 text-center">
+                No characters created!
+            </h3>
+        {% endif %}
+    </ul>
+    <div class="text-center p-4">
+        <a class="btn btn-primary" href="/characters/create" role="button">Create a new character!</a>
+    </div>
+</div>
+
+<script>
+    var modal = document.getElementById('modalConfirm');
+    let charIdAux = 0;
+
+    function displayModalForChar(charID){
+        document.getElementById('modalConfirm').style.display='block';
+        charIdAux = charID;
+    }
+    
+    function deleteChar(){
+        document.getElementById('modalConfirm').style.display='none';
+        window.location.href = (`/characters/${charIdAux}/delete`);
+    }
+    
+    window.onclick = function(event){
+        if (event.target == modal ){
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+{% endblock %}

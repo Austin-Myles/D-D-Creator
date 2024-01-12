@@ -1,0 +1,18 @@
+{% extends "/bases/base.html" %}
+{% block title%}Home{% endblock %}
+
+{% block body %}
+<br>
+<div class="bg-dark p-3 rounded text-white">
+    <h2 class="text-center p-2">{{ character.name }}</h2>
+    <div class="text-center">
+        <p>{{ (character.charClass)}}</p>
+        <p>{{ (character.race) }}</p>
+        <p>{{ (character.allingment) }}</p>
+    </div>
+    <br>
+    <div class="text-center">
+        <a class="btn btn-primary" href="/characters" role="button">Go back</a>
+    </div>
+</div>
+{% endblock %}

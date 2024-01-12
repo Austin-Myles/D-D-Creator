@@ -1,0 +1,208 @@
+{% extends "/bases/base.html" %}
+
+{% block title %}Form{% endblock %}
+{% block body %}
+<style>
+
+</style>
+<br>
+<div class="bg-dark p-3 rounded text-white">
+    {% if character %}
+        <h2 class="text-center p-3">Modify a character!</h2>
+    {% else %}
+        <h2 class="text-center p-3">Create a character!</h2>
+    {% endif %}
+    <hr class="border-light"/>
+    <form method="POST">
+        <div class="form-row align-items-center text-center justify-content-center">
+            <div class="p-3">
+                <label for="charName">Name</label>
+                {% if character %}
+                    <input type="text" class="form-control" id="charName" name="charName" placeholder="Enter a name" value="{{ character.name }}"/>
+                {% else %}
+                    <input type="text" class="form-control" id="charName" name="charName" placeholder="Enter a name"/>
+                {% endif %}
+            </div>
+            <div class="p-3">
+                <label for="charClass">Choose a Class</label>
+                <br>
+                <select class="custom-select" id="charClass" name="charClass">
+                    <option value="Barbarian">Barbarian</option>
+                    <option value="Bard">Bard</option>
+                    <option value="Cleric">Cleric</option>
+                    <option value="Druid">Druid</option>
+                    <option value="Fighter">Fighter</option>
+                    <option value="Monk">Monk</option>
+                    <option value="Paladin">Paladin</option>
+                    <option value="Ranger">Ranger</option>
+                    <option value="Rogue">Rogue</option>
+                    <option value="Sorcerer">Sorcerer</option>
+                    <option value="Warlock">Warlock</option>
+                    <option value="Wizard">Wizard</option>
+                </select>
+            </div>
+            <div class="p-3">
+                <label for="charAllign">Choose an allignment</label>
+                <br>
+                <select class="custom-select" id="charAllign" name="charAllign">
+                    <option value="Lawful Good">Lawful Good</option>
+                    <option value="Neutral Good">Neutral Good</option>
+                    <option value="Chaotic Good">Chaotic Good</option>
+                    <option value="Lawful Neutral">Lawful Neutral</option>
+                    <option value="True Neutral">True Neutral</option>
+                    <option value="Chaotic Neutral">Chaotic Neutral</option>
+                    <option value="Lawful Evil">Lawful Evil</option>
+                    <option value="Neutral Evil">Neutral Evil</option>
+                    <option value="Chaotic Evil">Chaotic Evil</option>
+                </select>
+            </div>
+            <div class="p-3">
+                <label for="charRace">Choose an race</label>
+                <br>
+                <select class="custom-select" id="charRace" name="charRace">
+                    <option value="Dragonborn">Dragonborn</option>
+                    <option value="Dwarf">Dwarf</option>
+                    <option value="Elf">Elf</option>
+                    <option value="Gnome">Gnome</option>
+                    <option value="Half-Elf">Half-Elf</option>
+                    <option value="Hafling">Hafling</option>
+                    <option value="Half-Orc">Half-Orc</option>
+                    <option value="Human">Human</option>
+                    <option value="Tiefling">Tiefling</option>
+                </select>
+            </div>
+            {% if character %}
+            <div class="input-group d-flex justify-content-center mb-3">
+                <label for="exp">Experience Points left</label>
+                <div class="">
+                    <input  class="ml-2 text-center form-control form-control-sm" type="number" id="exp" name="exp" 
+                    value={{ character.exp }} readonly>
+                </div>
+            </div>
+            <div>
+                <label for="stren" class="text-center">Strenght 
+                    <div>
+                        <input class="text-center form-control form-control-sm" type="number" id="stren" name="stren" 
+                        value={{ character.stren }} readonly>
+                        <div class="p-2">
+                            <button class="btn btn-primary" type="button" onClick="incrementSkill('stren')">+</button>
+                            <button class="btn btn-danger" type="button" onClick="decrementSkill('stren')">-</button>
+                        </div>
+                    </div>
+                </label>
+
+                <label for="dex" class="text-center">Dexterity
+                    <div>
+                        <input class="text-center form-control form-control-sm" type="number" id="dex" name="dex" 
+                        value={{ character.dex }}  size="1" readonly>
+                        <div class="p-2">
+                            <button class="btn btn-primary" type="button" onClick="incrementSkill('dex')">+</button>
+                            <button class="btn btn-danger" type="button" onClick="decrementSkill('dex')">-</button>
+                        </div>
+                    </div>
+                </label>
+
+                <label for="consti" class="text-center" >Constitution
+                    <div>
+                        <input class="text-center form-control form-control-sm" type="number" id="consti" name="consti" 
+                        value={{ character.consti }}  size="1" readonly>
+                        <div class="p-2">
+                            <button class="btn btn-primary" type="button" onClick="incrementSkill('consti')">+</button>
+                            <button class="btn btn-danger" type="button" onClick="decrementSkill('consti')">-</button>
+                        </div>
+                    </div>
+                </label>
+
+
+                <label for="inteligence" class="text-center">Inteligence
+                    <div>
+                        <input class="text-center form-control form-control-sm" type="number" id="inteligence" name="inteligence" 
+                        value={{ character.inteli }}  size="1" readonly>
+                        <div class="p-2">
+                            <button class="btn btn-primary" type="button" onClick="incrementSkill('inteligence')">+</button>
+                            <button class="btn btn-danger" type="button" onClick="decrementSkill('inteligence')">-</button>
+                        </div>
+                    </div>
+                </label>
+
+
+                <label for="wisdom" class="text-center">Wisdom
+                    <div>
+                        <input class="text-center form-control form-control-sm" type="number" id="wisdom" name="wisdom" 
+                        value={{ character.wisdom }}  size="1" readonly>
+                        <div class="p-2">
+                            <button class="btn btn-primary" type="button" onClick="incrementSkill('wisdom')" >+</button>
+                            <button class="btn btn-danger" type="button" onClick="decrementSkill('wisdom')">-</button>
+                        </div>
+                    </div>
+                </label>
+
+
+                <label for="charisma" class="text-center">Charisma
+                    <div class="">
+                        <input class="text-center form-control form-control-sm" type="number" id="charisma" name="charisma" 
+                        value={{ character.charisma }}  size="1" readonly>
+                        <div class="p-2">
+                            <button class="btn btn-primary" type="button" onClick="incrementSkill('charisma')">+</button>
+                            <button class="btn btn-danger" type="button" onClick="decrementSkill('charisma')">-</button>
+                        </div>
+                    </div>
+                </label>
+
+            </div>
+            {% endif %}
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-primary p-3">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+    <script>
+
+        //WE'RE NOT DONE BITCH^2
+        const expElement = document.getElementById('exp').value;
+        let expPoints = parseInt(expElement, 10);
+        let skillElement, skillPoints, skillAux;
+    
+        function getSkill(skillId){
+            skillAux = skillId;
+            skillElement = document.getElementById(skillId).value;
+            skillPoints = parseInt(skillElement, 10);
+        }
+    
+        function incrementSkill(skillId){
+            getSkill(skillId);
+            if(expPoints > 0){
+                expPoints-=1;
+                skillPoints+=1;
+                updateXp();
+            }
+            else{
+                alert('Not enough experience points, stranger.');
+            }
+        }
+        
+        function decrementSkill(skillId){
+            getSkill(skillId);
+            console.log(skillPoints);
+            if(skillPoints > 0){
+                expPoints+=1;
+                skillPoints-=1;
+                updateXp();   
+            }
+            else{
+                alert('This skill is in 0, stranger.');
+            }
+        }
+    
+        function updateXp(){
+            document.getElementById("exp").value = expPoints;
+            document.getElementById(skillAux).value = skillPoints;
+        }
+    </script>
+{% endblock %}

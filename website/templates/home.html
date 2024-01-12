@@ -1,10 +1,13 @@
-{% extends "base.html" %}
+{% extends "/bases/base.html" %}
 {% block title%}Home{% endblock %}
 
-{% block content %}
-<h1 class="text-center p-4">Welcome to the D&D Character Creator!</h1>
-<h2 class="text-center p-2">I hope you like it!</h2>
-<div class="text-center">
-    <a class="btn btn-primary" href="/characters" role="button">Go to Characters</a>
+{% block body %}
+<br>
+<div class="container-fluid bg-dark p-3 text-white rounded">
+    <h1 class="text-center p-4">Welcome to the D&D Character Creator!</h1>
+    <h2 class="text-center p-2">I hope you like it!</h2>
+    <div class="text-center p-2">
+        <a class="btn btn-primary" href="/characters" role="button">Go to Characters</a>
+    </div>
 </div>
 {% endblock %}
