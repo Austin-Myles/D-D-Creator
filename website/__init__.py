@@ -24,16 +24,16 @@ def create_app():
 
     db.init_app(app)
 
-    from .views import views
-    from .auth import auth
-    from .characters import characters
+    from .src.views import views
+    from .src.auth import auth
+    from .src.characters import characters
 
     #Blueprints
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(characters, url_prefix='/characters')
     
-    from .models import User, DndChar
+    from .src.models import User, DndChar
 
     with app.app_context():
         db.create_all()

@@ -17,3 +17,11 @@ for your account that you will have to register in advance.
 Si, ya que con su diseño y utilización simple, es posible crear una cantidad indefinida 
 de personajes para tu cuenta que tendras que registrar previamente.
 
+//Cosas que faltan
+
+-Cuenta: Cambiar contraseña
+
+//Cosas a implementar luego
+
+-Personajes: Input text para ingresar descripciones sobre eventos ocurridos / Imagen xd
+
