@@ -9,7 +9,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(40))
     is_confirmed = db.Column(db.Boolean(), nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
-    characters = db.relationship('DndChar')
+    characters = db.relationship('DndChar', backref='user', cascade='all, delete')
 
 
 #Personaje a crear
@@ -26,4 +26,4 @@ class DndChar(db.Model):
     inteli = db.Column(db.Integer)
     wisdom = db.Column(db.Integer)
     charisma = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))

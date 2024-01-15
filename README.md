@@ -17,9 +17,11 @@ for your account that you will have to register in advance.
 Si, ya que con su diseño y utilización simple, es posible crear una cantidad indefinida 
 de personajes para tu cuenta que tendras que registrar previamente.
 
-//Cosas que faltan
+//Cosas importantes que faltan.
 
--Cuenta: Cambiar contraseña
+-Cuenta: Perdi contraseña.
+-Codigo: Refactorizar y limpiar codigo, deshacerse de malos olores, etc.
+
 
 //Cosas a implementar luego
 

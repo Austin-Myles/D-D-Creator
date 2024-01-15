@@ -3,29 +3,33 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 import os
 from flask_login import LoginManager
+from flask_mail import Mail
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
+
 
 def create_app():
     #Database configuration
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'ASDQWEZXCASDQWEASDZXC'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-
+    app.config["SECURITY_PASSWORD_SALT"] = 'dwey xrpw gabx ebws'
     #Flask-Mail configuration
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_USE_TLS'] = False
     app.config['MAIL_USE_SSL'] = True
     app.config['MAIL_USERNAME'] = 'dndtest820@gmail.com'
-    app.config['MAIL_PASSWORD'] = 'DndTest123123'
+    app.config['MAIL_PASSWORD'] = 'dwey xrpw gabx ebws'
     app.config['MAIL_PORT'] = 465
+    app.config['MAIL_DEFAULT_SENDER'] = 'noreply@flask.com'
 
+    mail = Mail(app)
 
     db.init_app(app)
 
     from .src.views import views
-    from .src.auth import auth
+    from .src.accounts.auth import auth
     from .src.characters import characters
 
     #Blueprints

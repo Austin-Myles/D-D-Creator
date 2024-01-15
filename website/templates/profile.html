@@ -1,0 +1,136 @@
+{% extends "/bases/base.html" %}
+{% block title%}Home{% endblock %}
+
+{% block body %}
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+    
+    /* List items hover color */
+
+    
+    /* Set a style for all buttons */
+    button {
+      background-color: #04AA6D;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      opacity: 0.9;
+    }
+    
+    button:hover {
+      opacity:1;
+    }
+
+    
+    /* Add padding and center-align text to the container */
+    .container {
+      padding: 16px;
+      text-align: center;
+    }
+    
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: #474e5d;
+      padding-top: 50px;
+    }
+    
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+    }
+    
+</style>
+
+<div class="bg-dark p-3 rounded text-white">
+    <div class="text-center">
+        <p>Username: {{ user.username }}</p>
+        <p>User's Email: {{ user.email }}</p>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="button"
+        onclick="toggleChanger()">Change Password</button>
+        <button class="btn btn-danger" type="button"
+        onclick="displayModalForUser()">Delete Account</button>
+    </div>
+    <div id="modalConfirm" class="modal text-dark">
+        <form class="modal-content">
+            <div class="container">
+                <h1 class="p-2">Delete Account</h1>
+                <h5 class="p-2">Are you sure you want to delete your account with all its characters?</h5>
+                <div class="">
+                    <button type="button" onclick="document.getElementById('modalConfirm').style.display='none'" class="btn btn-secondary btn-lg p-3">Cancel</button>
+                    <button type="button" onclick="deleteAccount()" class="btn btn-danger btn-lg p-3">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="changepass" style="display: none;">
+        <br>
+        <form method="POST">
+            <div class="form-group">
+                <label for="actpass">Current password</label>
+                <input type="password" class="form-control" id="actpass" name="actpass"/>
+            </div>
+            <div class="form-group">
+                <label for="newpass1">Password</label>
+                <input type="password" class="form-control" id="newpass1" name="newpass1"/>
+            </div>
+            <div class="form-group">
+                <label for="newpass2">Password(Confirmation)</label>
+                <input type="password" class="form-control " id="newpass2" name="newpass2"/>
+            </div>
+            <div class="container">
+                <div class="row">
+                  <div class="col text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    var modal = document.getElementById('modalConfirm');
+
+    function displayModalForUser(){
+        document.getElementById('modalConfirm').style.display='block';
+    }
+    
+    function deleteAccount(){
+        document.getElementById('modalConfirm').style.display='none';
+        window.location.href = (`/delete`);
+    }
+    
+    window.onclick = function(event){
+        if (event.target == modal ){
+            modal.style.display = "none";
+        }
+    }
+
+    function toggleChanger(){
+        let changer = document.getElementById('changepass');
+        if (changer.style.display === "none") {
+            changer.style.display = "block";    
+        } else {
+            changer.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

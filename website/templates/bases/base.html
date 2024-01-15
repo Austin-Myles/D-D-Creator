@@ -46,7 +46,10 @@
                 </ul>
                 {% if user.is_authenticated %}
                 <br>
-                <a class="btn btn-danger" role="button" href="/logout" >Log Out</a>
+                <div>
+                    <a class="btn btn-info" role="button" href="/profile"> Profile</a>
+                    <a class="btn btn-danger" role="button" href="/logout" >Log Out</a>
+                </div>
                 {% else %}
                 <div>
                     <a class="btn btn-success" role="button" href="/login" >Log In</a>
@@ -80,7 +83,6 @@
         {% endwith %}
 
         <div>
-            
         
             <div class="container">
                 {% block body %}
